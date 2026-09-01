@@ -21,7 +21,7 @@
       </div>
       <div class="pergunta">
         <h5>Telefone</h5>
-        <input type="tel" id="input_telefone">
+        <input type="tel" id="input_telefone" />
       </div>
       <div class="pergunta">
         <h5>Data de nascimento</h5>
@@ -29,15 +29,15 @@
       </div>
       <div class="pergunta">
         <h5>Endereço</h5>
-        <input type="text" id="input_endereco">
+        <input type="text" id="input_endereco" />
       </div>
       <div>
         <h5>Turno</h5>
-        <input type="radio" name="turno" id="input_turno">
+        <input type="radio" name="turno" id="input_manha" />
         <label for="turno">Manhã</label>
-        <input type="radio" name="turno" id="input_turno">
+        <input type="radio" name="turno" id="input_tarde" />
         <label for="turno">Tarde</label>
-        <input type="radio" name="turno" id="input_turno">
+        <input type="radio" name="turno" id="input_noite" />
         <label for="turno">Noite</label>
       </div>
       <div>
@@ -54,20 +54,20 @@
         </select>
       </div>
       <div class="checkbox">
-        <h5>Atividades extracurriculares</h5>
-        <input type="checkbox" id="input_atv" name="esp" />
+        <h5>Atividades extracurriculares (Mínimo 1)</h5>
+        <input type="checkbox" id="input_atv1" name="esp" />
         <label for="esp">Esportes</label>
 
-        <input type="checkbox" id="input_atv" name="mus" />
+        <input type="checkbox" id="input_atv2" name="mus" />
         <label for="mus">Música</label>
 
-        <input type="checkbox" id="input_atv" name="tea" />
+        <input type="checkbox" id="input_atv3" name="tea" />
         <label for="tea">Teatro</label>
 
-        <input type="checkbox" id="input_atv" name="ic" />
+        <input type="checkbox" id="input_atv4" name="ic" />
         <label for="ic">Iniciação científica</label>
 
-        <input type="checkbox" id="input_atv" name="ge" />
+        <input type="checkbox" id="input_atv5" name="ge" />
         <label for="ge">Grêmio estudantil</label>
       </div>
       <button onclick="cadastrar()">Cadastrar</button>
@@ -76,36 +76,46 @@
 </html>
 
 <script>
+  function cadastrar() {
     const nome = input_nome.value;
     const email = input_email.value;
-    const telefone = input_telefone.value;
+    const telefone = Number(input_telefone.value);
     const dtNacimento = input_dtNascimento.value;
+    const anoNasc = Number(dtNacimento.split("-")[0]);
+    const anoAtual = new Date().getFullYear();
+    const idade = Number(anoAtual - anoNasc);
     const endereco = input_endereco.value;
-    const turno = input_turno.value;
+    const turnoM = input_manha.checked;
+    const turnoT = input_tarde.checked;
+    const turnoN = input_noite.checked;
     const curso = slt_curso.value;
-    const atv = input_atv.value;
+    let atv1 = input_atv1.checked;
+    let atv2 = input_atv2.checked;
+    let atv3 = input_atv3.checked;
+    let atv4 = input_atv4.checked;
+    let atv5 = input_atv5.checked;
 
-    function cadastrar(nome, email, telefone, dtNacimento, endereco, turno, curso, atv){
-        
-        // Validação de campos
-        if (!nome || nome.length < 4){
-            alert("Nome inválido.")
-        } else if (!email || email.length < 11){
-            alert("E-mail inválido.")
-        } else if (!telefone || telefone.length < 11){
-            alert("Telefone inválido.")
-        } else if (!dtNacimento){
-            alert("Data de nascimento inválido.")
-        } else if (turno == null){
-            alert("Turno inválido.")
-        } else if (curso == "#"){
-            alert("Curso inválido.")
-        } else if (atv == null){
-            alert("Atividades extracurriculares inválido.")
-        } else {
-            alert("tudo certo! ;)")
-        }
+    // Validação de campos
+    if (!nome || nome.length < 4) {
+      alert("Nome inválido.");
+    } else if (!email || email.length < 11) {
+      alert("E-mail inválido.");
+    } else if (!telefone || telefone.length < 11 || isNaN(telefone) ) {
+      alert("Telefone inválido.");
+    } else if (!dtNacimento || idade > 20 || idade < 15) {
+      console.log(dtNacimento);
+      console.log("idade:" + idade);
+      alert("Data de nascimento inválido.");
+    } else if (!endereco) {
+      alert("Endereço inválido.");
+    } else if (turnoM == false && turnoT == false && turnoN == false) {
+      alert("Turno inválido.");
+    } else if (curso == "#") {
+      alert("Curso inválido.");
+    } else if (atv1 == false && atv2 == false && atv3 == false && atv4 == false && atv5 == false) {
+      alert("Atividades extracurriculares inválido.");
+    } else {
+      alert("tudo certo! ;)");
     }
-
-
+  }
 </script>
