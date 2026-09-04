@@ -28,9 +28,20 @@
         <input type="date" id="input_dtNascimento" />
       </div>
       <div class="pergunta">
-        <h5>Endereço</h5>
-        <input type="text" id="input_endereco" />
+        <h5>Bairro</h5>
+        <input type="text" id="input_bairro" />
       </div>
+
+      <div class="pergunta">
+        <h5>Logradouro</h5>
+        <input type="text" id="input_logradouro" />
+      </div>
+
+      <div class="pergunta">
+        <h5>Número</h5>
+        <input type="text" id="input_numero" />
+      </div>
+
       <div>
         <h5>Turno</h5>
         <input type="radio" name="turno" id="input_manha" />
@@ -54,7 +65,7 @@
         </select>
       </div>
       <div class="checkbox">
-        <h5>Atividades extracurriculares (Mínimo 1)</h5>
+        <h5>Atividades extracurriculares (Opcional)</h5>
         <input type="checkbox" id="input_atv1" name="esp" />
         <label for="esp">Esportes</label>
 
@@ -84,36 +95,39 @@
     const anoNasc = Number(dtNacimento.split("-")[0]);
     const anoAtual = new Date().getFullYear();
     const idade = Number(anoAtual - anoNasc);
-    const endereco = input_endereco.value;
+    const bairro = input_bairro.value;
+    const logradouro = input_logradouro.value;
+    const numero = Number(input_numero.value);
     const turnoM = input_manha.checked;
     const turnoT = input_tarde.checked;
     const turnoN = input_noite.checked;
     const curso = slt_curso.value;
-    let atv1 = input_atv1.checked;
-    let atv2 = input_atv2.checked;
-    let atv3 = input_atv3.checked;
-    let atv4 = input_atv4.checked;
-    let atv5 = input_atv5.checked;
+    const atv1 = input_atv1.checked;
+    const atv2 = input_atv2.checked;
+    const atv3 = input_atv3.checked;
+    const atv4 = input_atv4.checked;
+    const atv5 = input_atv5.checked;
 
     // Validação de campos
-    if (!nome || nome.length < 4) {
+    if (!nome || nome.length < 4 || isNaN(Number(nome))) {
+      console.log(nome.length);
       alert("Nome inválido.");
-    } else if (!email || email.length < 11) {
+    } else if (!email || email.length < 11 || nome.length == undefined) {
       alert("E-mail inválido.");
-    } else if (!telefone || telefone.length < 11 || isNaN(telefone) ) {
+    } else if (!telefone || telefone.toString().length < 11 || isNaN(telefone)) {
       alert("Telefone inválido.");
     } else if (!dtNacimento || idade > 20 || idade < 15) {
-      console.log(dtNacimento);
-      console.log("idade:" + idade);
       alert("Data de nascimento inválido.");
-    } else if (!endereco) {
-      alert("Endereço inválido.");
+    } else if (!bairro || bairro.length == undefined) {
+      alert("Bairro inválido.");
+    } else if (!logradouro || bairro.length == undefined) {
+      alert("Logradouro inválido.");
+    } else if (!numero || isNaN(numero)) {
+      alert("Número inválido.");
     } else if (turnoM == false && turnoT == false && turnoN == false) {
       alert("Turno inválido.");
     } else if (curso == "#") {
       alert("Curso inválido.");
-    } else if (atv1 == false && atv2 == false && atv3 == false && atv4 == false && atv5 == false) {
-      alert("Atividades extracurriculares inválido.");
     } else {
       alert("tudo certo! ;)");
     }
